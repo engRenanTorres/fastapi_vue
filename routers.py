@@ -1,10 +1,12 @@
 from fastapi import APIRouter
+from cep import sync_request
 
 router = APIRouter()
 
-@router.get("/converter/{moeda_corrente}")
-def converter(moeda_corrente: str):
-    return moeda_corrente
+@router.get("/endereco/{cep}")
+def converter(cep: str):
+    result = sync_request(cep)
+    return result
 
 @router.get("/query")
 def converter(query: str):
