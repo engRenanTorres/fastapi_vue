@@ -9,3 +9,7 @@ venv\Scripts\activate
 
 # Instalar dependências
 pip install -r requirements.txt
+
+# Atualizar requirements.txt
+pip install <lib>
+pip freeze > requirements.txt
