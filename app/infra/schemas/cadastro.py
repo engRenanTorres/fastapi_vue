@@ -1,10 +1,10 @@
-from typing import List
+from typing import List, Optional
 from beanie import Document
 
 class CadastroInput(Document):
     nome: str
     senha: str
-    floatLis: List[str]
+    floatLis: Optional[List[str]] = None
      
     class Settings:
         name = 'cadastros'

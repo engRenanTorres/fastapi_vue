@@ -7,14 +7,15 @@ from fastapi.responses import FileResponse
 import os
 #uvicorn main:app --reload
 
-app = FastAPI()
-app.include_router(router=router)
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     mongo = MongoConfig()
-    mongo.init()
+    await mongo.init()
     yield
+    
+app = FastAPI(lifespan=lifespan)
+app.include_router(router=router)
+
 
 @app.get("/oi")
 def Oi():
