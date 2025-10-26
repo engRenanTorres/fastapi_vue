@@ -12,7 +12,7 @@ async def lifespan(app: FastAPI):
     mongo = MongoConfig()
     await mongo.init()
     yield
-    
+
 app = FastAPI(lifespan=lifespan)
 app.include_router(router=router)
 

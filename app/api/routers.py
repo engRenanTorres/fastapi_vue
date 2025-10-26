@@ -1,8 +1,11 @@
 from fastapi import APIRouter, Path,Query
 from app.use_cases.cep import sync_request,async_request
 from app.infra.schemas.cadastro import CadastroInput
+from app.api.controllers.cadastro_constroller import cadastro_router
 
 router = APIRouter(prefix="/api")
+
+router.include_router(cadastro_router,prefix="/api/cadastro",tags=["Cadastro"])
 
 @router.get("/endereco/{cep}")
 def converter(cep: str = Path(regex="^\d{8}$", min_length=8)):
@@ -20,8 +23,3 @@ async def async_end(
 @router.get("/query")
 def converterQuery(query: str):
     return query
-
-@router.get("/cadastro/")
-async def get_users():
-    cadastros = await CadastroInput.find_all().to_list()
-    return cadastros
