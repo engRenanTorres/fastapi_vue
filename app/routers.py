@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Path,Query
-from cep import sync_request,async_request
+from app.cep import sync_request,async_request
 
 router = APIRouter(prefix="/api")
 
