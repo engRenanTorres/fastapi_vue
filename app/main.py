@@ -1,12 +1,20 @@
 from fastapi import FastAPI
-from app.routers import router
-from fastapi.staticfiles import StaticFiles
+from app.infra.mongo.config import MongoConfig
+from app.api.routers import router
+from contextlib import asynccontextmanager
+#from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
 #uvicorn main:app --reload
 
 app = FastAPI()
 app.include_router(router=router)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    mongo = MongoConfig()
+    mongo.init()
+    yield
 
 @app.get("/oi")
 def Oi():
